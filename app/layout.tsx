@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "qrcodit | Custom QR Codes for free",
@@ -19,6 +20,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1 overflow-auto">
           {children}
+          <Analytics />
         </main>
         <Footer />
       </body>
