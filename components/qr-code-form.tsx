@@ -26,6 +26,9 @@ const QrCodeForm = ({ formData, handleSubmit, handleLinkChange, handleLogoChange
 					className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
 					required
 				/>
+				<p className="text-sm text-gray-600 dark:text-gray-300">
+					You can use <span className="text-blue-500">https://</span> or <span className="text-blue-500">http://</span>
+				</p>
 			</div>
 			
 			<div className="space-y-2">
