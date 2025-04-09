@@ -20,16 +20,20 @@ const ImagesDropper = ({ value, onChange }: { value: string | File, onChange: (f
     <div 
       {...getRootProps()} 
       className={cn(
-        "w-full h-32 border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer transition-colors",
+        "w-full h-32 border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E71E8] focus-visible:ring-offset-2 focus:ring-2 focus:ring-dotted focus:ring-[#1E71E8]",
         isDragActive 
-          ? "border-blue-500 bg-blue-50" 
-          : "border-gray-300 hover:border-blue-500"
+          ? "border-[#1E71E8] bg-blue-50" 
+          : "border-gray-300 hover:border-[#1E71E8]"
       )}
     >
       <input {...getInputProps()} />
       <div className="text-center">
         {value ? (
-          <p className="text-sm text-gray-600">File selezionato: {typeof value === 'string' ? value : value.name}</p>
+          <p className="text-sm text-gray-600">
+            File selezionato: {typeof value === 'string' 
+              ? value.length > 20 ? value.substring(0, 17) + '...' : value 
+              : value.name.length > 20 ? value.name.substring(0, 17) + '...' : value.name}
+          </p>
         ) : isDragActive ? (
           <p className="text-sm text-blue-500">Rilascia qui il file...</p>
         ) : (

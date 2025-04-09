@@ -4,20 +4,18 @@ import React from 'react'
 
 const Footer = () => {
 	return (
-		<footer className='w-full bg-gray-100 dark:bg-gray-900 py-6 px-4 border-t border-gray-200 dark:border-gray-800'>
-			<div className='max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4'>
-				<p className='text-gray-600 dark:text-gray-300 font-medium'>
-					&copy; {new Date().getFullYear()} qrcodit. All rights reserved.
-				</p>
-				<div className='flex items-center gap-1 text-gray-600 dark:text-gray-300'>
-					Made with <Heart className='text-red-500 h-4 w-4 mx-1 animate-pulse' /> by 
-					<Link 
-						href='https://tob.codes' 
-						target='_blank' 
-						className='text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium ml-1 transition-colors duration-200 hover:underline underline-offset-4'
-					>
+		<footer className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+			<div className="container mx-auto px-4 py-6">
+				<div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+					<p className="text-sm text-gray-600 dark:text-gray-300">
+						© 2024 qrcodit. All rights reserved.
+					</p>
+					<p className='text-gray-600 dark:text-gray-300'>
+					Maded with <Heart className='inline-block text-red-500 p-1 mb-0.5' /> by{' '}
+					<Link href='https://tob.codes' target='_blank' className='text-blue-500 hover:underline underline-offset-2'>
 						tobi
 					</Link>
+				</p>
 				</div>
 			</div>
 		</footer>

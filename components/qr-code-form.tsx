@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from './ui/button'
-import { QrCodeIcon, Image, LinkIcon } from 'lucide-react'
-import ImagesDropper from './images-droppper'
+import { QrCodeIcon, Image, LinkIcon, Loader2 } from 'lucide-react'
+import ImagesDropper from './images-dropper'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { motion } from 'framer-motion'
@@ -15,49 +15,38 @@ const QrCodeForm = ({ formData, handleSubmit, handleLinkChange, handleLogoChange
 	isGenerating: boolean 
 }) => {
 	return (
-		<form className='flex flex-col gap-5' onSubmit={handleSubmit}>
-			<div className='flex flex-col gap-2'>
-				<Label htmlFor="url" className="flex items-center text-sm font-medium">
-					<LinkIcon className="h-4 w-4 mr-2" />
-					URL
-				</Label>
-				<Input 
-					type="url" 
-					id="url" 
-					name="url" 
-					placeholder="https://example.com" 
-					value={formData.link} 
+		<form onSubmit={handleSubmit} className="space-y-6">
+			<div className="space-y-2">
+				<Label htmlFor="link" className="text-gray-700 dark:text-gray-300">URL</Label>
+				<Input
+					id="link"
+					type="url"
+					value={formData.link}
 					onChange={handleLinkChange}
-					className="focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+					placeholder="Enter your URL here"
+					className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
 					required
 				/>
 			</div>
 			
-			<div className='flex flex-col gap-2'>
-				<Label htmlFor="logo" className="flex items-center text-sm font-medium">
-					<Image className="h-4 w-4 mr-2" />
-					Logo (optional)
-				</Label>
+			<div className="space-y-2">
+				<Label className="text-gray-700 dark:text-gray-300">Logo (optional)</Label>
 				<ImagesDropper value={formData.logo} onChange={handleLogoChange} />
-				<p className="text-xs text-gray-500 mt-1">Add your logo to customize the QR code</p>
 			</div>
-			
+
 			<Button 
-				className='w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 transition-all duration-200'
-				type='submit'
+				type="submit" 
+				className="w-full bg-[#1E71E8] hover:bg-[#1E71E8]/90 text-white"
 				disabled={isGenerating}
 			>
 				{isGenerating ? (
-					<motion.div
-						animate={{ rotate: 360 }}
-						transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-					>
-						<QrCodeIcon className="mr-2 h-4 w-4" />
-					</motion.div>
+					<div className="flex items-center gap-2">
+						<Loader2 className="h-4 w-4 animate-spin" />
+						<span>Generating...</span>
+					</div>
 				) : (
-					<QrCodeIcon className="mr-2 h-4 w-4" />
+					"Generate QR Code"
 				)}
-				{isGenerating ? 'Generating...' : 'Generate QR Code'}
 			</Button>
 		</form>
 	)

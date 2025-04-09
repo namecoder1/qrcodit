@@ -9,25 +9,20 @@ type QrCodeProps = {
 	isImage: boolean,
 	bgColor: string,
 	fgColor: string,
-
 }
 
 export default function QrCode({link, logo, size, bgColor, fgColor, isImage}: QrCodeProps) {
   return (
     <QRCodeCanvas
       value={link}
-      title={"Title for my QR Code"}
       size={size}
       bgColor={bgColor}
       fgColor={fgColor}
-      level={"L"}
-			imageSettings={isImage ? {
+      level="H"
+      imageSettings={isImage ? {
         src: logo,
-        x: undefined,
-        y: undefined,
-        height: 40,
-        width: 40,
-        opacity: 1,
+        height: 50,
+        width: 50,
         excavate: true,
       } : undefined}
     />

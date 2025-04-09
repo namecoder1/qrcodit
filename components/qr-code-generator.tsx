@@ -65,30 +65,33 @@ const QrCodeGenerator = () => {
   };
 
   return (
-    <section className='w-full flex flex-col items-center justify-center gap-8 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800'>
+    <section className='flex-1 flex flex-col items-center justify-center gap-8 p-8'>
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-4xl"
       >
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="create" className="data-[state=active]:bg-[#A0B7FF] data-[state=active]:text-white">
+          <TabsList className="grid w-full grid-cols-2 mb-6 bg-gray-100 dark:bg-gray-800">
+            <TabsTrigger 
+              value="create" 
+              className="data-[state=active]:bg-[#1E71E8] data-[state=active]:text-white dark:data-[state=active]:bg-[#1E71E8]"
+            >
               Create QR Code
             </TabsTrigger>
             <TabsTrigger 
               value="preview" 
               disabled={!qrCode}
-              className="data-[state=active]:bg-blue-500 data-[state=active]:text-white"
+              className="data-[state=active]:bg-[#1E71E8] data-[state=active]:text-white dark:data-[state=active]:bg-[#1E71E8]"
             >
               Preview
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="create">
-            <Card className='w-full shadow-lg border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300'>
-              <CardHeader className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                <h2 className='text-xl font-semibold'>Create your custom QR Code</h2>
+          <TabsContent value="create" className='focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E71E8] focus-visible:ring-offset-2 rounded-lg'>
+            <Card className='w-full shadow-lg border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300 rounded-lg bg-white dark:bg-gray-800'>
+              <CardHeader className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 rounded-t-lg">
+                <h2 className='text-xl font-semibold text-gray-900 dark:text-gray-100'>Create your custom QR Code</h2>
               </CardHeader>
               <CardContent className="p-6">
                 <QrCodeForm 
