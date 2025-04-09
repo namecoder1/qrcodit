@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader } from './ui/card'
 import QrCode from './qr-code'
 import { Download, Check } from 'lucide-react'
 import { Button } from './ui/button'
-import { CheckCircle2 } from 'lucide-react'
 import { FormData } from '@/utils/types'
 
 const QrCodeVisualizer = ({ qrCode, formData, handleDownload, isDownloaded }: { qrCode: string | null, formData: FormData, handleDownload: () => void, isDownloaded: boolean }) => {

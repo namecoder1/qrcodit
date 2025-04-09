@@ -1,10 +1,9 @@
 import React from 'react'
 import { Button } from './ui/button'
-import { QrCodeIcon, Image, LinkIcon, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import ImagesDropper from './images-dropper'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
-import { motion } from 'framer-motion'
 import { FormData } from '@/utils/types'
 
 const QrCodeForm = ({ formData, handleSubmit, handleLinkChange, handleLogoChange, isGenerating }: { 
