@@ -107,7 +107,7 @@ const QrCodeGenerator = () => {
     };
 
     return (
-        <section className='flex-1 flex flex-col items-center justify-center gap-8 p-8'>
+        <section className='flex-1 flex flex-col items-center justify-center gap-8 p-4'>
             <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}

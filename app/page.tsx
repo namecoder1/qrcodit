@@ -5,7 +5,7 @@ export default function Home() {
 	return (
 		<div className="flex-1 flex flex-col">
 			<div className="flex-1 overflow-auto py-4 md:py-6">
-				<div className="mx-auto px-3 py-4 md:px-4 md:py-8">
+				<div className="mx-auto md:px-4 md:py-8">
 					<div className="hidden sm:block">
 						<h1 className="text-3xl md:text-4xl font-bold text-center mb-4 md:mb-8 text-gray-900 dark:text-gray-100">
 							QR Code Generator
