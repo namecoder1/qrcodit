@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "qrcodit | Custom QR Codes for free",
+  title: "qrcodit | Generate custom QR Codes for free",
   description: "Create your custom QR Code for free in seconds!",
 };
 

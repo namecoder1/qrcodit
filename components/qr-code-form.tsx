@@ -1,7 +1,5 @@
-import React from 'react'
-import { Button } from './ui/button'
-import { Loader2 } from 'lucide-react'
-import ImagesDropper from './images-dropper'
+'use client'
+import React, { useState } from 'react'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { FormData, QrCodeType } from '@/utils/types'
@@ -12,26 +10,31 @@ import WifiForm from './wifi-form'
 import EmailForm from './email-form'
 import CustomPhoneInput from './phone-input'
 import VCardForm from './v-card-form'
+import ImagesDropper from './images-dropper'
+import { Checkbox } from './ui/checkbox'
 
 const QrCodeForm = ({ 
 	formData, 
-	handleSubmit, 
 	handleQrTypeChange,
 	handleInputChange, 
 	handleBgColorChange, 
 	handleFgColorChange, 
-	handleLogoChange, 
-	isGenerating 
+	handleLogoChange
 }: { 
 	formData: FormData, 
-	handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>, 
 	handleQrTypeChange: (type: QrCodeType) => void,
 	handleInputChange: (field: string, value: string | boolean) => void, 
 	handleBgColorChange: (color: string) => void,
 	handleFgColorChange: (color: string) => void,
-	handleLogoChange: (file: File) => void, 
-	isGenerating: boolean 
+	handleLogoChange: (file: File) => void
 }) => {
+
+	const [isLogoVisible, setIsLogoVisible] = useState(false);
+
+	const handleIsLogo = () => {
+		setIsLogoVisible(prev => !prev)
+	}
+
 	const renderQrTypeFields = () => {
 		switch (formData.qrType) {
 			case 'url':
@@ -45,7 +48,6 @@ const QrCodeForm = ({
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('url', e.target.value)}
 							placeholder="Enter your URL here"
 							className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-							required
 						/>
 						<p className="text-sm text-gray-600 dark:text-gray-300">
 							You can use <span className="text-blue-500">https://</span> or <span className="text-blue-500">http://</span>
@@ -66,7 +68,6 @@ const QrCodeForm = ({
 							onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleInputChange('text', e.target.value)}
 							placeholder="Enter your text here"
 							className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-							required
 						/>
 					</div>
 				);
@@ -115,14 +116,14 @@ const QrCodeForm = ({
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="space-y-6">
-			<div className="space-y-2">
-				<Label htmlFor="qrType" className="text-gray-700 dark:text-gray-300">QR Code Type</Label>
+		<div className="space-y-4">
+			<div className="flex items-center justify-between bg-gray-50 pb-3 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 rounded-t-lg">
+				<h2 className='text-xl max-w-[200px] sm:max-w-full font-semibold text-gray-900 dark:text-gray-100'>Create your custom QR Code</h2>
 				<Select 
 					value={formData.qrType} 
 					onValueChange={handleQrTypeChange}
 				>
-					<SelectTrigger className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+					<SelectTrigger className="w-fit space-x-1 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
 						<SelectValue placeholder="Select QR code type" />
 					</SelectTrigger>
 					<SelectContent>
@@ -136,42 +137,41 @@ const QrCodeForm = ({
 					</SelectContent>
 				</Select>
 			</div>
-			
-			{renderQrTypeFields()}
-			
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-				<ColorPicker 
-					color={formData.bgColor} 
-					onChange={handleBgColorChange} 
-					label="Background Color" 
-				/>
-				<ColorPicker 
-					color={formData.fgColor} 
-					onChange={handleFgColorChange} 
-					label="Foreground Color" 
-				/>
-			</div>
 
-			<div className="space-y-2">
-				<Label className="text-gray-700 dark:text-gray-300">Logo (optional)</Label>
-				<ImagesDropper value={formData.logo} onChange={handleLogoChange} />
-			</div>
+			<div className="flex flex-col gap-4">
+				<div className='flex items-center gap-2'>
+					<Checkbox 
+						checked={isLogoVisible}
+						title='Logo' 
+						onCheckedChange={handleIsLogo} 
+					/>
+					<Label className="text-gray-700 dark:text-gray-300">Logo (optional)</Label>
+				</div>
 
-			<Button 
-				type="submit" 
-				className="w-full bg-[#1E71E8] hover:bg-[#1E71E8]/90 text-white"
-				disabled={isGenerating}
-			>
-				{isGenerating ? (
-					<div className="flex items-center gap-2">
-						<Loader2 className="h-4 w-4 animate-spin" />
-						<span>Generating...</span>
+				{isLogoVisible && (
+					<div className="mb-2">
+						<ImagesDropper value={formData.logo} onChange={handleLogoChange} />
 					</div>
-				) : (
-					"Generate QR Code"
 				)}
-			</Button>
-		</form>
+				
+				<div className="bg-white dark:bg-gray-800 rounded-md p-4 border border-gray-200 dark:border-gray-700">
+					{renderQrTypeFields()}
+				</div>
+				
+				<div className="grid sm:grid-cols-2 gap-4 mt-auto">
+					<ColorPicker 
+						color={formData.bgColor} 
+						onChange={handleBgColorChange} 
+						label="Background Color" 
+					/>
+					<ColorPicker 
+						color={formData.fgColor} 
+						onChange={handleFgColorChange} 
+						label="Foreground Color" 
+					/>
+				</div>
+			</div>
+		</div>
 	)
 }
 

@@ -6,7 +6,7 @@ import { Download, Check } from 'lucide-react'
 import { Button } from './ui/button'
 import { FormData } from '@/utils/types'
 
-const QrCodeVisualizer = ({ qrCode, formData, handleDownload, isDownloaded }: { qrCode: string | null, formData: FormData, handleDownload: () => void, isDownloaded: boolean }) => {
+const QrCodeVisualizer = ({ qrCode, formData, handleDownload, isDownloaded, onSvgGenerated }: { qrCode: string | null, formData: FormData, handleDownload: () => void, isDownloaded: boolean, onSvgGenerated: (svgCode: string) => void }) => {
 	return (
 		<motion.div
 			initial={{ opacity: 0, scale: 0.95 }}
@@ -15,23 +15,22 @@ const QrCodeVisualizer = ({ qrCode, formData, handleDownload, isDownloaded }: { 
 			className="w-full"
 		>
 			<Card className="w-full shadow-lg border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300 rounded-lg bg-white dark:bg-gray-800">
-				<CardHeader className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 rounded-t-lg">
+				<CardHeader className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 rounded-t-lg py-3">
 					<h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Your QR Code</h2>
 				</CardHeader>
-				<CardContent className="p-6">
-					<div className="flex flex-col items-center gap-6">
-						{qrCode && (
-							<div className="p-4 bg-white rounded-lg shadow-inner">
-								<QrCode
-									link={qrCode}
-									size={formData.size}
-									logo={formData.logo ? (typeof formData.logo === 'string' ? formData.logo : URL.createObjectURL(formData.logo)) : ''}
-									isImage={!!formData.logo}
-									bgColor={formData.bgColor}
-									fgColor={formData.fgColor}
-								/>
-							</div>
-						)}
+				<CardContent className="p-4">
+					<div className="flex flex-col items-center gap-4">
+						<div className="p-2 rounded-lg shadow-inner" style={{ backgroundColor: formData.bgColor }}>
+							<QrCode
+								link={qrCode || '?'}
+								size={formData.size}
+								logo={formData.logo ? (typeof formData.logo === 'string' ? formData.logo : URL.createObjectURL(formData.logo)) : ''}
+								isImage={!!formData.logo}
+								bgColor={formData.bgColor}
+								fgColor={formData.fgColor}
+								onSvgGenerated={onSvgGenerated}
+							/>
+						</div>
 						
 						<Button
 							onClick={handleDownload}
