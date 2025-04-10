@@ -6,14 +6,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion, AnimatePresence } from "framer-motion";
 import QrCodeForm from './qr-code-form';
 import QrCodeVisualizer from './qr-code-visualizer';
+import { FormData, QrCodeType } from '@/utils/types';
 
 const QrCodeGenerator = () => {
-  const [formData, setFormData] = useState<{
-    link: string;
-    logo: string | File;
-  }>({
-    link: '',
+    const [formData, setFormData] = useState<FormData>({
+    qrType: 'url',
+    url: '',
     logo: '',
+    bgColor: '#ffffff',
+    fgColor: '#000000',
+    size: 256,
   });
 
   const [qrCode, setQrCode] = useState<string | null>(null);
@@ -21,11 +23,17 @@ const QrCodeGenerator = () => {
   const [isDownloaded, setIsDownloaded] = useState(false);
   const [activeTab, setActiveTab] = useState("create");
 
-  const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+  const handleQrTypeChange = (type: QrCodeType) => {
     setFormData(prev => ({
       ...prev,
-      link: value
+      qrType: type
+    }));
+  };
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
     }));
   };
 
@@ -41,12 +49,53 @@ const QrCodeGenerator = () => {
     }
   };
 
+  const handleBgColorChange = (color: string) => {
+    setFormData(prev => ({
+      ...prev,
+      bgColor: color
+    }));
+  };
+
+  const handleFgColorChange = (color: string) => {
+    setFormData(prev => ({
+      ...prev,
+      fgColor: color
+    }));
+  };
+
+  const generateQrCodeContent = () => {
+    const { qrType } = formData;
+    
+    switch (qrType) {
+      case 'url':
+        return formData.url || '';
+      case 'wifi':
+        const { wifiSSID, wifiPassword, wifiHidden, wifiEncryption } = formData;
+        return `WIFI:T:${wifiEncryption || 'WPA'};S:${wifiSSID || ''};P:${wifiPassword || ''};${wifiHidden ? 'H:true;' : ''};`;
+      case 'text':
+        return formData.text || '';
+      case 'email':
+        const { email, emailSubject, emailBody } = formData;
+        return `mailto:${email || ''}?subject=${encodeURIComponent(emailSubject || '')}&body=${encodeURIComponent(emailBody || '')}`;
+      case 'phone':
+        return `tel:${formData.phone || ''}`;
+      case 'sms':
+        const { smsPhone, smsMessage } = formData;
+        return `smsto:${smsPhone || ''}:${smsMessage || ''}`;
+      case 'vcard':
+        const { vcardName, vcardOrg, vcardPhone, vcardEmail, vcardAddress, vcardWebsite } = formData;
+        return `BEGIN:VCARD\nVERSION:3.0\nN:${vcardName || ''}\nORG:${vcardOrg || ''}\nTEL:${vcardPhone || ''}\nEMAIL:${vcardEmail || ''}\nADR:${vcardAddress || ''}\nURL:${vcardWebsite || ''}\nEND:VCARD`;
+      default:
+        return '';
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsGenerating(true);
     // Simulate a small delay for better UX
     await new Promise(resolve => setTimeout(resolve, 500));
-    setQrCode(formData.link);
+    setQrCode(generateQrCodeContent());
     setIsGenerating(false);
     setActiveTab("preview");
   }
@@ -97,7 +146,10 @@ const QrCodeGenerator = () => {
                 <QrCodeForm 
                   formData={formData} 
                   handleSubmit={handleSubmit} 
-                  handleLinkChange={handleLinkChange} 
+                  handleQrTypeChange={handleQrTypeChange}
+                  handleInputChange={handleInputChange}
+                  handleBgColorChange={handleBgColorChange}
+                  handleFgColorChange={handleFgColorChange}
                   handleLogoChange={handleLogoChange} 
                   isGenerating={isGenerating} 
                 />

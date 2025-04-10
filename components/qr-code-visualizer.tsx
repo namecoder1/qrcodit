@@ -24,11 +24,11 @@ const QrCodeVisualizer = ({ qrCode, formData, handleDownload, isDownloaded }: { 
 							<div className="p-4 bg-white rounded-lg shadow-inner">
 								<QrCode
 									link={qrCode}
-									size={256}
+									size={formData.size}
 									logo={formData.logo ? (typeof formData.logo === 'string' ? formData.logo : URL.createObjectURL(formData.logo)) : ''}
 									isImage={!!formData.logo}
-									bgColor='#ffffff'
-									fgColor='#000000'
+									bgColor={formData.bgColor}
+									fgColor={formData.fgColor}
 								/>
 							</div>
 						)}

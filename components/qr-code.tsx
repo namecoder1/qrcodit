@@ -21,8 +21,8 @@ export default function QrCode({link, logo, size, bgColor, fgColor, isImage}: Qr
       level="H"
       imageSettings={isImage ? {
         src: logo,
-        height: 50,
-        width: 50,
+        height: size * 0.2,
+        width: size * 0.2,
         excavate: true,
       } : undefined}
     />

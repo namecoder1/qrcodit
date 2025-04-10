@@ -10,7 +10,7 @@ export default function Home() {
 						<h1 className="text-3xl md:text-4xl font-bold text-center mb-4 md:mb-8 text-gray-900 dark:text-gray-100">
 							QR Code Generator
 						</h1>
-						<p className="text-center text-gray-600 dark:text-gray-300 mb-8 md:mb-12 max-w-2xl mx-auto">
+						<p className="text-center text-gray-600 dark:text-gray-300 mb-8 md:mb-12 max-w-2xl mx-auto px-3 md:px-4">
 							Create custom QR codes with your logo. Perfect for businesses, personal use, and marketing materials.
 						</p>
 					</div>

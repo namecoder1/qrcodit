@@ -5,7 +5,7 @@ import React from 'react'
 const Footer = () => {
 	return (
 		<footer className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-			<div className="container mx-auto px-4 py-6">
+			<div className="container mx-auto px-4 py-4">
 				<div className="flex flex-col sm:flex-row justify-between items-center gap-4">
 					<p className="text-sm text-gray-600 dark:text-gray-300">
 						© 2024 qrcodit. All rights reserved.

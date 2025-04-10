@@ -1,8 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 import logo from '@/public/logo.png'
-import Link from 'next/link'
-import { Heart } from 'lucide-react'
 import { ThemeToggle } from "./theme-toggle"
 
 const Navbar = () => {
@@ -16,12 +14,6 @@ const Navbar = () => {
 				<div className='ml-auto flex items-center space-x-4'>
 					<ThemeToggle />
 				</div>
-				<p className='hidden sm:block text-gray-600 dark:text-gray-300'>
-					Maded with <Heart className='inline-block text-red-500 p-1 mb-0.5' /> by{' '}
-					<Link href='https://tob.codes' target='_blank' className='text-blue-500 hover:underline underline-offset-2'>
-						tobi
-					</Link>
-				</p>
 			</div>
 		</nav>
 	)

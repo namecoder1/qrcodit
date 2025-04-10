@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} h-screen flex flex-col overflow-hidden`}>
+      <body className={`${inter.className} flex flex-col min-h-screen`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -28,7 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-900 flex justify-center items-center">
+          <main className="bg-gray-50 dark:bg-gray-900 flex-grow flex justify-center items-center">
             <div className="w-full md:w-auto">
               {children}
               <Analytics />
