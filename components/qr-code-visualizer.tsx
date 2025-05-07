@@ -2,11 +2,19 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import { Card, CardContent, CardHeader } from './ui/card'
 import QrCode from './qr-code'
-import { Download, Check } from 'lucide-react'
+import { Download, Check, Images } from 'lucide-react'
 import { Button } from './ui/button'
 import { FormData } from '@/utils/types'
+import { Select, SelectContent, SelectItem, SelectTrigger } from './ui/select'
 
-const QrCodeVisualizer = ({ qrCode, formData, handleDownload, isDownloaded, onSvgGenerated }: { qrCode: string | null, formData: FormData, handleDownload: () => void, isDownloaded: boolean, onSvgGenerated: (svgCode: string) => void }) => {
+const QrCodeVisualizer = ({ qrCode, formData, handleDownload, isDownloaded, onSvgGenerated, onFormatChange }: { qrCode: string | null, formData: FormData, handleDownload: (format: string) => void, isDownloaded: boolean, onSvgGenerated: (svgCode: string) => void, onFormatChange: (format: string) => void }) => {
+	const [selectedFormat, setSelectedFormat] = React.useState('svg');
+
+	const handleFormatSelect = (format: string) => {
+		setSelectedFormat(format);
+		onFormatChange(format);
+	};
+
 	return (
 		<motion.div
 			initial={{ opacity: 0, scale: 0.95 }}
@@ -32,8 +40,22 @@ const QrCodeVisualizer = ({ qrCode, formData, handleDownload, isDownloaded, onSv
 							/>
 						</div>
 						
+						<div className='flex items-center gap-2'>
+							<Select onValueChange={handleFormatSelect} defaultValue="svg">
+								<SelectTrigger className='flex items-center gap-2'>
+									<Images size={16} />
+									<p className='w-full'>{selectedFormat.toUpperCase()}</p>
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value='png'>PNG</SelectItem>
+									<SelectItem value='svg'>SVG</SelectItem>
+									<SelectItem value='webp'>WEBP</SelectItem>
+									<SelectItem value='jpg'>JPG</SelectItem>
+								</SelectContent>
+							</Select>
+
 						<Button
-							onClick={handleDownload}
+							onClick={() => handleDownload(selectedFormat)}
 							className="w-full bg-[#1E71E8] hover:bg-[#1E71E8]/90 text-white"
 						>
 							{isDownloaded ? (
@@ -46,8 +68,9 @@ const QrCodeVisualizer = ({ qrCode, formData, handleDownload, isDownloaded, onSv
 									<Download className="h-4 w-4" />
 									<span>Download QR Code</span>
 								</div>
-							)}
-						</Button>
+								)}
+							</Button>
+						</div>
 					</div>
 				</CardContent>
 			</Card>

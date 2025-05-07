@@ -4,8 +4,12 @@ import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Eye, EyeOff } from 'lucide-react'
 
-const PasswordInput = ({ value, onChange }: { value: string, onChange: (value: string) => void }) => {
+const PasswordInput = ({ value, onChange }: { 
+	value: string, 
+	onChange: (value: string) => void 
+}) => {
 	const [showPassword, setShowPassword] = useState(false)
+
 	return (
 		<div className="relative">
 			<Input

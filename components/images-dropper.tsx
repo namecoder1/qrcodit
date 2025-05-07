@@ -3,7 +3,10 @@ import React, {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 import { cn } from '@/lib/utils'
 
-const ImagesDropper = ({ value, onChange }: { value: string | File, onChange: (file: File) => void }) => {
+const ImagesDropper = ({ value, onChange }: { 
+  value: string | File, 
+  onChange: (file: File) => void 
+}) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     onChange(acceptedFiles[0]);
   }, [onChange]);
@@ -11,7 +14,8 @@ const ImagesDropper = ({ value, onChange }: { value: string | File, onChange: (f
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
     onDrop,
     accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.gif']
+      'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.svg'],
+      'image/svg+xml': ['.svg']
     },
     maxFiles: 1
   })

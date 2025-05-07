@@ -4,7 +4,11 @@ import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 import { FormData } from '@/utils/types'
 
-const EmailForm = ({ formData, handleInputChange }: { formData: FormData, handleInputChange: (field: string, value: string) => void }) => {
+const EmailForm = ({ formData, handleInputChange }: { 
+	formData: FormData, 
+	handleInputChange: (field: string, value: string) => void 
+}) => {
+	
 	return (
 			<div className="space-y-4">
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
