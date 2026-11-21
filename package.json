@@ -1,6 +1,7 @@
 {
   "name": "qrcodit",
   "version": "0.0.3",
+  "packageManager": "pnpm@12.18.0",
   "private": false,
   "scripts": {
     "dev": "next dev",
